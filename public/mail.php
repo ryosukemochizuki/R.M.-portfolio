@@ -133,8 +133,8 @@ $mailSignature = <<< FOOTER
 ──────────────────────
 RyosukeMochizuki
 Webエンジニア
-E-mail:Ryosukemochizuki.mochi.com
-URL: 
+E-mail:ryosukemochizuki.mochi@gmail.com
+URL: https://mochi-portfolio-81a69.firebaseapp.com/
 ──────────────────────
 
 FOOTER;
