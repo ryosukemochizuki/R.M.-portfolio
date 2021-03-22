@@ -1,0 +1,686 @@
+// reset css
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height:1;
+    color: #333;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    text-decoration: none;
+    color: #333;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000;
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;  
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+
+// ここから
+// レスポンシブ
+
+$bgtab: 1024px;
+@mixin bgtab {
+  @media screen and (max-width: ($bgtab)) {
+    @content;
+  }
+}
+
+$tab: 840px;
+@mixin tab {
+  @media screen and (max-width: ($tab)) {
+    @content;
+  }
+}
+
+$sm: 750px;
+@mixin sm {
+  @media screen and (max-width: ($sm)) {
+    @content;
+  }
+}
+
+$hsm: 500px;
+@mixin hsm {
+  @media screen and (max-width: ($hsm)) {
+    @content;
+  }
+}
+
+// header
+header {
+  height: 70px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba($color: #fff, $alpha: 0.7);
+  z-index: 10;
+}
+
+.header-container {
+  display: flex;
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 30px;
+  font-family: cursive;
+  letter-spacing: 1px;
+}
+
+.nav-list {
+  display: flex;
+
+  li {
+    margin: 0 10px;
+  }
+
+    a {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+}
+
+@include tab {
+  .header-container {
+    width: 90%;
+  }
+
+  .header-title {
+    font-size: 25px;
+  }
+}
+
+// navbar-humburger
+// humburgerの見た目
+.navbar-humburger{
+  display: none;
+  width: 50px;      
+  height: 50px;      
+  position: relative; 
+  z-index: 3;     
+}    
+.bar{      
+  width: 80%;      
+  height: 2px;        
+  display: block;      
+  position: absolute;      
+  left: 50%;      
+  transform: translateX(-50%);      
+  background-color: #222;
+}    
+.bar-top{   
+  top: 10px;
+}
+.bar-middle{    
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+.bar-bottom{
+  bottom: 10px;
+}
+
+// クリックされてopenクラスが付与された時(×になる)
+.navbar-humburger.close {
+  .bar {
+    background-color: #fff;
+  }
+  .bar-top{      
+    transform: translate(-50%,15px) rotate(45deg);      
+    transition: transform .3s;    
+  }
+  .bar-middle{      
+    opacity: 0;       
+    transition: opacity .3s;    
+  }    
+  .bar-bottom{      
+    transform: translate(-50%,-12px) rotate(-45deg);      
+    transition: transform .3s;    
+  }    
+}
+
+@include sm {
+  .navbar-humburger {
+    display: block;
+  }
+
+  .nav-wrapper {
+    display: none;    
+    width: 100%;      
+    height: 100%;      
+    position: fixed;      
+    top: 0;      
+    left: 0;       
+    z-index: 2;   
+  }     
+  .header-nav{        
+    width: 100%;        
+    height: 100%;        
+    background-color:rgba($color: #000, $alpha: 0.5);        
+    z-index: 2;
+
+    .nav-list{          
+      display: block;        
+      position: absolute;        
+      top: 50%;        
+      left: 50%;        
+      transform: translate(-50%,-50%);        
+      text-align: center;  
+      margin: 0 auto;
+      width: 70%;    
+    }
+
+    .nav-item{        
+      margin: 40px 0;
+    }
+
+    a {
+      color: #fff;
+    }
+  }     
+}
+
+// home
+#home {
+  height: 640px;
+  // background: url("../images/homebg.png") center bottom / cover no-repeat;
+  padding: 150px 0 0 86px;
+  background: transparent;
+}
+
+.attr {
+  width: max-content;
+  color: black;
+
+  h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    text-align: right;
+    font-size: 20px;
+  }
+}
+
+@include tab {
+  #home {
+    height: 875px;
+    padding: 150px 0 0 0;
+  }
+
+  .attr {
+    margin: 0 auto;
+  }
+}
+
+@include hsm {
+  .attr {
+    width: 80%;
+    h2 {
+      font-size: 22px;
+    }
+  }
+}
+
+// aboutme
+.aboutme-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+  padding: 50px 0;
+
+  img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin-right: 50px;
+    margin-bottom: 30px;
+  }
+}
+
+.contact {
+  text-align: center;
+  
+  a {
+    margin: 0 10px;
+  }
+
+  svg {
+    width: 25px;
+  }
+}
+
+
+.aboutme-text {
+  width: 500px;
+  h2 {
+    font-size: 30px;
+    width: max-content;
+    margin: 0 0 30px 0;
+  }
+
+  p {
+    line-height: 25px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+
+@include bgtab {
+  .aboutme-container {
+    width: 90%;
+    flex-direction: column;
+    text-align: center;
+    img {
+      margin: 0 0 30px 0;
+    }
+  }
+
+  .contact {
+    margin-bottom: 30px;
+  }
+
+  .aboutme-text {
+    width: 100%;
+
+    h2 {
+      width: 100%;
+    }
+  }
+}
+
+@include hsm {
+  .aboutme-container {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+// skills
+#skills {
+  // background: url("../images/skillsbg.png") center center / cover no-repeat;
+  background: transparent;
+  color: white;
+  padding: 50px 0;
+  h2 {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+}
+
+.skills-container {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.skill {
+  width: 250px;
+  text-align: center;
+  h3 {
+    font-size: 25px;
+    margin-bottom: 30px;
+    font-family: monospace;
+  }
+  svg {
+    width: 100px;
+    margin-bottom: 30px;
+  }
+  p {
+  line-height: 22px;
+  }
+}
+
+@include tab {
+
+  .skill {
+    width: 200px;
+  }
+}
+
+@include sm {
+  .skills-container {
+    display: block;
+    width: max-content;
+  }
+
+  .skill {
+    margin-bottom: 50px;
+  }
+}
+
+// services
+
+#services {
+  padding: 50px 0;
+  width: 100%;
+  h2 {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+}
+
+.services-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.service {
+  display: flex;
+  justify-content: space-between;
+  img {
+    width: 500px;
+    height: 370px;
+    margin-right: 50px;
+  }
+}
+
+.service-content {
+  h3 {
+    font-size: 25px;
+    margin-bottom: 30px;
+  }
+  p {
+  line-height: 22px;
+  margin-bottom: 30px;
+  }
+}
+
+@include bgtab {
+  .services-container {
+    width: 90%;
+  }
+
+  .service {
+    display: block;
+
+    img {
+      width: 60%;
+      display: block;
+      height: auto;
+      margin: 0 auto 30px auto;
+    }
+  }
+
+  .service-content {
+    width: 60%;
+    margin: 0 auto;
+  }
+}
+
+@include sm {
+  .service {
+    img {
+      width: 80%;
+    }
+  }
+
+  .service-content {
+    width: 80%;
+  }
+}
+
+// works
+#works {
+  // background: url("../images/worksbg.png") center center / cover no-repeat;
+  background: transparent;
+  color: white;
+  padding: 50px 0 100px 0;
+  text-align: center;
+
+  h2 {
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+
+  p {
+    margin-bottom: 50px;
+  }
+}
+
+.works-container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.work {
+  width: 30%;
+  
+  .image {
+    position: relative;
+  }
+
+  img {
+    width: 100%;
+  }
+
+
+  a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: table;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    line-height: 20px;
+
+    &:hover {
+      background-color: rgba($color: #000, $alpha: 0.5);
+      transition: 0.7s;
+    }
+  }
+
+  span {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+@include tab {
+  .works-container {
+    flex-direction: column;
+    width: max-content;
+  }
+
+  .work {
+    width: 300px;
+    margin-bottom: 30px;
+  }
+}
+
+@include sm {
+  .work {
+    width: 300px;
+  }
+}
+
+@include hsm {
+  p {
+    font-size: 10px;
+  }
+}
+// contact
+#contact {
+  padding: 50px 0;
+  width: 100%;
+  h2 {
+    font-size: 40px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+}
+
+.contact-container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+form {
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+input[type="text"], textarea {
+  padding: 14px 0 14px 5px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+input[type="submit"] {
+  padding: 14px 0 14px 5px;
+  border-radius: 10px;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:active {
+    background-color: lightslategray;
+  }
+}
+
+@include sm {
+  .contact-container {
+    width: 80%;
+  }
+}
+
+@include hsm {
+  .contact-container {
+    width: 90%;
+  }
+}
+
+// footer
+footer {
+  padding: 30px 0;
+  text-align: center;
+  font-size: 14px;
+  background-color: lightslategray;
+}
+
+// fade-in
+.effect-fade {
+  opacity: 0;
+  transform: translate(0, 100px);
+  transition: all 1s;
+}
+
+.effect-scroll {
+  opacity: 1;
+  transform: translate(0, 0);
+}
